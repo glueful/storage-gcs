@@ -25,6 +25,7 @@ Add a disk under `config/storage.php`:
     'key_file' => env('GCS_KEY_FILE'), // path to service-account JSON
     'prefix' => env('GCS_PREFIX', ''),
     'signed_ttl' => (int) env('GCS_SIGNED_URL_TTL', 3600),
+    'max_signed_ttl' => (int) env('GCS_MAX_SIGNED_URL_TTL', 86400),
 ],
 ```
 
@@ -36,6 +37,7 @@ GCS_PROJECT_ID=my-google-cloud-project
 GCS_KEY_FILE=/absolute/path/to/service-account.json
 GCS_PREFIX=
 GCS_SIGNED_URL_TTL=3600
+GCS_MAX_SIGNED_URL_TTL=86400
 ```
 
 `key_file` is optional for filesystem construction when your runtime already
@@ -66,6 +68,8 @@ Direct provider URLs are opt-in and visibility-scoped:
 Private native URLs are bearer tokens from Google Cloud Storage. Keep them
 short-lived and prefer the app-signed URL when application-side authorization
 or revocation matters.
+Direct provider URL TTLs are clamped by the disk's `max_signed_ttl` value, which
+defaults to 86400 seconds.
 
 ## Diagnostics
 

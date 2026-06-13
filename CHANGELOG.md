@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-06-13
+
+### Fixed
+
+- Clamp native GCS signed URL TTLs with `max_signed_ttl` so direct provider URLs cannot be minted with unbounded lifetimes.
+
 ## [1.0.0] - 2026-06-10 -- Initial Storage Provider Pack Release
 
 ### Added
