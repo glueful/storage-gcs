@@ -8,5 +8,6 @@ return [
         'key_file' => env('GCS_KEY_FILE', ''),
         'prefix' => env('GCS_PREFIX', ''),
         'signed_ttl' => (int) env('GCS_SIGNED_URL_TTL', 3600),
+        'max_signed_ttl' => (int) env('GCS_MAX_SIGNED_URL_TTL', 86400),
     ],
 ];

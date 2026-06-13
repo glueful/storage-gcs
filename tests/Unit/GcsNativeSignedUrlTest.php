@@ -53,6 +53,41 @@ final class GcsNativeSignedUrlTest extends TestCase
         self::assertStringContainsString('tenant-a/uploads/file.jpg', rawurldecode($url));
     }
 
+    public function testTemporaryUrlClampsTtlToConfiguredMaximum(): void
+    {
+        $keyFile = $this->createServiceAccountKeyFile();
+
+        $url = (new GcsStorageDriverFactory())->temporaryUrl('uploads/file.jpg', 999999, [
+            'bucket' => 'media-bucket',
+            'project_id' => 'offline-project',
+            'key_file' => $keyFile,
+            'max_signed_ttl' => 900,
+        ]);
+
+        self::assertIsString($url);
+        parse_str((string) parse_url($url, PHP_URL_QUERY), $query);
+
+        self::assertSame('900', $query['X-Goog-Expires'] ?? null);
+    }
+
+    public function testTemporaryUrlClampsConfiguredDefaultTtlToMaximum(): void
+    {
+        $keyFile = $this->createServiceAccountKeyFile();
+
+        $url = (new GcsStorageDriverFactory())->temporaryUrl('uploads/file.jpg', 0, [
+            'bucket' => 'media-bucket',
+            'project_id' => 'offline-project',
+            'key_file' => $keyFile,
+            'signed_ttl' => 999999,
+            'max_signed_ttl' => 900,
+        ]);
+
+        self::assertIsString($url);
+        parse_str((string) parse_url($url, PHP_URL_QUERY), $query);
+
+        self::assertSame('900', $query['X-Goog-Expires'] ?? null);
+    }
+
     private function createServiceAccountKeyFile(): string
     {
         if (!function_exists('openssl_pkey_new') || !function_exists('openssl_pkey_export')) {
