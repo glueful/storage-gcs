@@ -24,7 +24,7 @@
         "league/flysystem-google-cloud-storage": "^3.0"
     },
     "require-dev": {
-        "glueful/framework": "^1.56.0",
+        "glueful/framework": "^1.79",
         "phpstan/phpstan": "^1.0",
         "phpunit/phpunit": "^10.5",
         "squizlabs/php_codesniffer": "^3.6"
@@ -51,16 +51,17 @@
             "name": "StorageGcs",
             "displayName": "GCS Storage Driver",
             "description": "Google Cloud Storage driver for Glueful.",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "categories": [
                 "storage"
             ],
             "publisher": "glueful-team",
             "provider": "Glueful\\Extensions\\StorageGcs\\StorageGcsServiceProvider",
             "requires": {
-                "glueful": ">=1.56.0",
+                "glueful": ">=1.79.0",
                 "extensions": []
-            }
+            },
+            "migrations": "none"
         }
     },
     "config": {
