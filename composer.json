@@ -51,7 +51,7 @@
             "name": "StorageGcs",
             "displayName": "GCS Storage Driver",
             "description": "Google Cloud Storage driver for Glueful.",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "categories": [
                 "storage"
             ],
